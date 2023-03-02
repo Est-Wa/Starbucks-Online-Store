@@ -1,0 +1,3 @@
+{"UserId":1,"UserName":"EstherW","Password":"12345678","FirstName":"Esther","LastName":"Wanderer"}
+{"UserId":2,"UserName":"RBWand","Password":"1234bayla","FirstName":"Rachel Bayla","LastName":"Wanderer"}
+{"UserId":3,"UserName":"BrachaH","Password":"123456","FirstName":"Bracha","LastName":"Heimowitz"}
