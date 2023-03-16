@@ -1,4 +1,0 @@
-{"UserId":1,"UserName":"EstherWand","Password":"123456","FirstName":"Esther","LastName":"Wanderer"}
-{"UserId":2,"UserName":"RBWand","Password":"1234bayla","FirstName":"Rachel Bayla","LastName":"Wanderer"}
-{"UserId":3,"UserName":"BrachaH","Password":"123456","FirstName":"Bracha","LastName":"Heimowitz"}
-{"UserId":4,"UserName":"FreidyG","Password":"qwerty","FirstName":"Freidy","LastName":"Geizler"}
