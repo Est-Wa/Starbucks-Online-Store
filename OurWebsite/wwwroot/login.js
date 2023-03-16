@@ -1,10 +1,31 @@
-﻿const register = async () => {
+﻿const checkPWbefore = async () => {
+    //    let progress = document.getElementById('progress');
+    console.log("in checking pw before sending");
+    let currentPw = document.getElementById("password").value;
+    let strength = await fetch("api/users/checkPw", {
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        method: "POST",
+        body: JSON.stringify(currentPw)
+    });
+    if (strength < 4) {
+        alert("Password not strong enough, please enter a new one.");
+        document.getElementById("progress").textContent = strength;
+        alert("smaller than four")
+    }
+    else
+        alert("bigger than 4")
+    document.getElementById("progress").textContent = strength;
+}
+
+
+const register = async () => {
 
     console.log('in register')
     let userName = document.getElementById('userName').value;
     let password = document.getElementById('password').value;
     let firstName = document.getElementById('firstName').value;
     let lastName = document.getElementById('lastName').value;
+    let progress = document.getElementById('progress')
 
     let user = {
         UserName: userName, Password: password, FirstName: firstName, LastName: lastName
@@ -20,6 +41,8 @@
         window.location.href = "update.html";
     }
 }
+
+
 
 const login = async () =>{
 

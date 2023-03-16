@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using System.Text.Json;
+using Zxcvbn;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,9 +10,18 @@ namespace OurWebsite.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class UsersController : ControllerBase
     {
-        UserService uc = new();
+
+        private readonly IUserService _userService;
+
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        //UserService uc = new();
 
         static private string path = "..//wwwroot";
 
@@ -31,27 +41,35 @@ namespace OurWebsite.Controllers
 
         // POST api/<UsersController>
         [HttpPost("register")]
-        public ActionResult<User> RegisterPost([FromBody] User user)
+        public async Task<ActionResult<UserOld>> RegisterPost([FromBody] User user)
         {
-            user.UserId = uc.AddUser(user);
+
+            user.UserId = await _userService.AddUser(user);
             return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
         }
 
         // POST api/<UsersController>
         [HttpPost("login")]
-        public ActionResult<User> LoginPost([FromBody] User user)
+        public async Task<ActionResult<User>> LoginPost([FromBody] UserOld user)
         {
-            User data = uc.Login(user);
+            User data = await _userService.Login(user);
             if (data != null)
                 return data;
             return NoContent();
         }
 
+        //POST api/<UsersController>
+        [HttpPost("checkPw")]
+        public int CheckPassword([FromBody] string password) 
+        {
+            int result = Zxcvbn.Core.EvaluatePassword(password).Score;
+            return result;
+        }
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public ActionResult<User> Put(int id, [FromBody] User user)
+        public async Task<ActionResult<UserOld>> Put(int id, [FromBody] User user)
         {
-            if(uc.Update(user,id))
+            if(await _userService.Update(user, id))
                 return Ok(200);
             return NotFound(400);
         }

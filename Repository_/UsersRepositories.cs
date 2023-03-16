@@ -5,63 +5,43 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace Repository
 {
 
-    public class UsersRepositories
+    public class UsersRepositories : IUsersRepositories
     {
+        StoreDbContext _storeDbContext;
 
-        public int AddUser(User user)
+        public UsersRepositories(StoreDbContext storeDbContext)
         {
-            int numberOfUsers = System.IO.File.ReadLines("./Users.txt").Count();
-            user.UserId = numberOfUsers + 1;
-            string userJson = JsonSerializer.Serialize(user);
-            System.IO.File.AppendAllText("./Users.txt", userJson + Environment.NewLine);
+            _storeDbContext = storeDbContext;
+        }
+        public async Task<int> AddUser(User user) {
+
+            //change this
+            await _storeDbContext.Users.AddAsync(user);
+            await _storeDbContext.SaveChangesAsync();
             return user.UserId;
         }
 
-        public User? Login(User user)
-        {
-            User data = new User();
-            using (StreamReader reader = System.IO.File.OpenText("./Users.txt"))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User currentUser = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (currentUser.UserName == user.UserName && currentUser.Password == user.Password)
-                        data = currentUser;
-                }
-            }
-            if (data != null)
-                return data;
-            return null;
+        public async Task<User> Login(UserOld user) {
+            //return null;
+            var created = await _storeDbContext.Users.FindAsync(user.UserName);
+            return created;
         }
 
-        public Boolean Update(User user, int id)
-        {
-            user.UserId = id;
-            string textToReplace = string.Empty;
-            using (StreamReader reader = System.IO.File.OpenText("./Users.txt"))
+        public async Task<Boolean> Update(User user, int id) {
+            var foundUser = await _storeDbContext.Users.FindAsync(id);
+            if (foundUser != null)
             {
-                string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-
-                    User currentUser = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (currentUser.UserId == id)
-                        textToReplace = currentUserInFile;
-                }
-            }
-            if (textToReplace != string.Empty)
-            {
-                string text = System.IO.File.ReadAllText("./Users.txt");
-                text = text.Replace(textToReplace, JsonSerializer.Serialize(user));
-                System.IO.File.WriteAllText("./Users.txt", text);
+                _storeDbContext.Entry(foundUser).CurrentValues.SetValues(user);
+                await _storeDbContext.SaveChangesAsync();
                 return true;
             }
-                return false;
+            return false;
         }
     }
 }
