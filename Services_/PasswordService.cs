@@ -10,7 +10,7 @@ namespace Services
     {
         public int checkPassword(string pw)
         {
-            return 0;
+            return Zxcvbn.Core.EvaluatePassword(pw).Score;
         }
     }
 }

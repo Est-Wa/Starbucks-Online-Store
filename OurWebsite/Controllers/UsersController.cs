@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using System.Text.Json;
-using Zxcvbn;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,12 +24,7 @@ namespace OurWebsite.Controllers
 
         static private string path = "..//wwwroot";
 
-        //GET: api/<UsersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+   
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
@@ -43,7 +37,10 @@ namespace OurWebsite.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserOld>> RegisterPost([FromBody] User user)
         {
-
+            PasswordService pw = new PasswordService();
+            int result = pw.checkPassword(user.Password);
+            if(result<2)
+                return BadRequest("password strength is too low");
             user.UserId = await _userService.AddUser(user);
             return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
         }
@@ -58,13 +55,7 @@ namespace OurWebsite.Controllers
             return NoContent();
         }
 
-        //POST api/<UsersController>
-        [HttpPost("checkPw")]
-        public int CheckPassword([FromBody] string password) 
-        {
-            int result = Zxcvbn.Core.EvaluatePassword(password).Score;
-            return result;
-        }
+
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult<UserOld>> Put(int id, [FromBody] User user)
@@ -74,10 +65,5 @@ namespace OurWebsite.Controllers
             return NotFound(400);
         }
 
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

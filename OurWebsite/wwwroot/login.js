@@ -2,11 +2,12 @@
     //    let progress = document.getElementById('progress');
     console.log("in checking pw before sending");
     let currentPw = document.getElementById("password").value;
-    let strength = await fetch("api/users/checkPw", {
+    let strength = await fetch("api/passwords", {
         headers: { "Content-Type": "application/json; charset=utf-8" },
         method: "POST",
         body: JSON.stringify(currentPw)
     });
+    console.log(strength.json().data)
     if (strength < 4) {
         alert("Password not strong enough, please enter a new one.");
         document.getElementById("progress").textContent = strength;
@@ -38,7 +39,7 @@ const register = async () => {
     const data = await res.json();
     if (data) {
         sessionStorage.setItem("userInfo", JSON.stringify({ firstName: data.firstName, lastName: data.lastName, id: data.userId }));
-        window.location.href = "update.html";
+        /*window.location.href = "update.html";*/
     }
 }
 
