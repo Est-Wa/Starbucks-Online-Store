@@ -7,8 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IUsersRepositories, UsersRepositories>();
+
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<ICategoryService, ICategoryService>();
+
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IProductService, ProductService>();
+
 builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer("Data Sourece = srv2\\pupils ; Initial Catalog = StoreDB ; Integrated Security = True; Pooling = False"));
 
 builder.Services.AddEndpointsApiExplorer();

@@ -13,14 +13,11 @@ namespace Repository
     public class UsersRepositories : IUsersRepositories
     {
         StoreDbContext _storeDbContext;
-
         public UsersRepositories(StoreDbContext storeDbContext)
         {
             _storeDbContext = storeDbContext;
         }
         public async Task<int> AddUser(User user) {
-
-            //change this
             await _storeDbContext.Users.AddAsync(user);
             await _storeDbContext.SaveChangesAsync();
             return user.UserId;

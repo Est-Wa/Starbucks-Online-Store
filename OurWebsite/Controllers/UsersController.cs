@@ -14,17 +14,12 @@ namespace OurWebsite.Controllers
     {
 
         private readonly IUserService _userService;
-
         public UsersController(IUserService userService)
         {
             _userService = userService;
         }
 
-        //UserService uc = new();
-
         static private string path = "..//wwwroot";
-
-   
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
