@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities;
+using Microsoft.AspNetCore.Mvc;
+using Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +10,25 @@ namespace OurWebsite.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        // GET: api/<OrdersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IOrderService _orderService;
+        public OrdersController(IOrderService orderService)
         {
-            return new string[] { "value1", "value2" };
+            _orderService = orderService;
         }
-
-        // GET api/<OrdersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<OrdersController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Order>> AddOrder([FromBody] Order order)
         {
-        }
-
-        // PUT api/<OrdersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+            Order newOrder = await _orderService.AddOrderAsync(order);
+            if (newOrder != null)
+            {
+                return CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrder);
+            }
+            return BadRequest();
+;        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Order>> Get(int id)
         {
-        }
-
-        // DELETE api/<OrdersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return await _orderService.GetOrderAsync(id);
         }
     }
 }

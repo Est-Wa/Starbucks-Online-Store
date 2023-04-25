@@ -78,6 +78,7 @@ public partial class StoreDbContext : DbContext
             entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)
                 .HasConstraintName("FK__Products__Catego__2B3F6F97");
+
         });
 
         modelBuilder.Entity<User>(entity =>

@@ -20,5 +20,10 @@ namespace Repository
             await _storeDbContext.SaveChangesAsync();
             return order;
         }
+        public async Task<Order> GetOrderAsync(int id)
+        {
+            return await _storeDbContext.Orders.FindAsync(id);
+        }
+
     }
 }

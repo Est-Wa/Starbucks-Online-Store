@@ -12,10 +12,18 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IUsersRepositories, UsersRepositories>();
 
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
-builder.Services.AddTransient<ICategoryService, ICategoryService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IProductService, ProductService>();
+
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+builder.Services.AddTransient<IOrderService, OrderService>();
+
+//builder.Services.AddTransient<IPasswordService, PasswordService>();
+
+
+
 
 builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer("Data Sourece = srv2\\pupils ; Initial Catalog = StoreDB ; Integrated Security = True; Pooling = False"));
 
