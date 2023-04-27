@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,15 @@ namespace Repository
         {
             _storeDbContext = storeDbContext;
         }
-        public async Task<List<Product>> GetProductAsync(int? [] categoryIds, int? minPrice, int? maxPrice, string? productName, string? description)
-        {
-            var products = await _storeDbContext.Products.Include(p => p.Category).ToListAsync();
-            return products;
+        public async Task<List<Product>> GetProductAsync(int?[] categoryIds, int? minPrice, int? maxPrice, string? productName, string? description) {
+            var query = _storeDbContext.Products.Where(Product =>
+            (description == null ? true : Product.Description.Contains(description)) &&
+            (minPrice == null ? true : Product.Price >= minPrice) &&
+            (maxPrice == null ? true : Product.Price <= maxPrice) &&
+            (productName == null ? true : Product.ProductName.Equals(productName))
+            //&& (categoryIds == null? true: categoryIds.Any(
+            );
+            return List<Product> = await query.ToListAsync();
         }
         public async Task<int> AddProduct(Product product)
         {
