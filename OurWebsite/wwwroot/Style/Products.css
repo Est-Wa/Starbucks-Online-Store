@@ -44,6 +44,11 @@ ul {
 
 .img-w {
     height: 300px;
+    width:300px;}
+img {
+    height: 100%;
+    width: 100%;
+}
 }
 
 p.description {
@@ -51,11 +56,11 @@ p.description {
 }
 
 .bar::before {
-    content: 'חנות הצעצועים שלי';
+    content: 'Starbucks Coffee';
     color: white;
     /* display: inline-block; */
     position: absolute;
-    /* margin: 0 auto; */
+     margin: 20px; 
     /* display: block; */
     top: 8px;
     left: 51%;

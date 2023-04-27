@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -15,9 +16,10 @@ namespace Repository
         {
             _storeDbContext = storeDbContext;
         }
-        public async Task<Product> GetProductAsync(int? [] categoryIds, int? minPrice, int? maxPrice, string? productName, string? description)
+        public async Task<List<Product>> GetProductAsync(int? [] categoryIds, int? minPrice, int? maxPrice, string? productName, string? description)
         {
-            return null;
+            var products = await _storeDbContext.Products.Include(p => p.Category).ToListAsync();
+            return products;
         }
         public async Task<int> AddProduct(Product product)
         {
