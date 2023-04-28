@@ -25,7 +25,7 @@ namespace Repository
             (productName == null ? true : Product.ProductName.Equals(productName))
             //&& (categoryIds == null? true: categoryIds.Any(
             );
-            return List<Product> = await query.ToListAsync();
+            return await query.ToListAsync();
         }
         public async Task<int> AddProduct(Product product)
         {
