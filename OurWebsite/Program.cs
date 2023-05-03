@@ -30,6 +30,8 @@ builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer("D
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
 var app = builder.Build();
 
 
