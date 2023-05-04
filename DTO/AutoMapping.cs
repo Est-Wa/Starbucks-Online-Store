@@ -27,6 +27,8 @@ namespace DTO {
                 .ForMember(dest => dest.ProductName,
                 opts => opts.MapFrom(src => src.Product.ProductName));
 
+            CreateMap<OrderItem, OrderItemDTO>();
+
         }
     }
 }

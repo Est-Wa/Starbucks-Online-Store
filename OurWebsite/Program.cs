@@ -1,3 +1,4 @@
+using DTO;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Services;
@@ -20,6 +21,7 @@ builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 
+builder.Services.AddAutoMapper(typeof(AutoMapping));//type of what?????????????
 //builder.Services.AddTransient<IPasswordService, PasswordService>();
 
 
