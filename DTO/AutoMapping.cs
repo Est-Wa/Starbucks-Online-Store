@@ -20,7 +20,7 @@ namespace DTO {
 
             CreateMap<Order, OrderDTO>()
                 .ForMember(dest => dest.UserN,
-                opts => opts.MapFrom(src => src.User.UserName));
+                opts => opts.MapFrom(src => src.User.FirstName));
 
             CreateMap<User, UserDTO>();
             CreateMap<OrderItem, OrderItemDTO>()

@@ -21,7 +21,7 @@ function drawProduct(product) {
     let price = clone.querySelector(".price");
     price.textContent = `${product.price}$`
     let description = clone.querySelector(".description");
-    description.textContent = product.despriction;
+    description.textContent = product.description;
     document.body.appendChild(clone);
 }
 async function getCategories() {

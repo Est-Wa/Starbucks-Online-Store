@@ -39,7 +39,8 @@ namespace OurWebsite.Controllers
         public async Task<ActionResult<Order>> Get(int id)
         {
             Order o = await _orderService.GetOrderAsync(id);
-            OrderDTO odto = _mapper.Map<Order>(o);
+            var odto = _mapper.Map<Order>(o);
+            //OrderDTO odto = _mapper.Map<Order>(o);
                 //_mapper.Map<Order, OrderDTO>(o);
             return Ok(odto);
         }
