@@ -1,15 +1,23 @@
 ﻿
 async function getProducts() {
-    let res = await fetch("api/products", {
-        headers: { "Content-Type": "application/json; charset=utf-8" },
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json'
+    try {
+        const res = await fetch("api/products", {
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            method: "GET",
+        });
+        if (res.data !=null) {
+            const data = await res.json();
+            return data
         }
-    });
-    const data = await res.json();
-    return data
+        else {
+            return null;
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
+
 function drawProduct(product) {
     let template = document.getElementById("temp-card");
     let clone = template.content.cloneNode(true);
@@ -24,37 +32,43 @@ function drawProduct(product) {
     description.textContent = product.despriction;
     document.body.appendChild(clone);
 }
+
 async function getCategories() {
-    
+    try {
+        const res = await fetch("api/categories", {
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            method: "GET",
+        });
+        if (res.data != null) {
+            const data = await res.json();
+            return data
+        }
+        else {
+            return null;
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+function drawCategory(category) {
+    let template = document.getElementById("temp-category");
+    let clone = template.content.cloneNode(true);
+    let span = clone.querySelector(".OptionName");
+    span.textContent = category
+    let categoryList = document.getElementById('categoryList')
+    categoryList.appendChild(clone);
 }
 
 async function onload() {
-    const products = await getProducts();
-   // [{
-    //    ProductId: 1, productName: 'Iced Chai Tea Latte', Price: 15,
-    //    Despriction: 'Black tea infused with cinnamon, clove, and other warming spices are combined with milk and ice for the perfect balance of sweet and spicy.',
-    //    CatergoryId: 1, ImageLink: 'IcedChai.jpg'
-    //}, {
-    //    ProductId: 2, productName: 'Green Soft Touch Stainless-Steel Cold Cup', Price: 10,
-    //    Despriction: 'Our 24 fl oz stainless-steel cold cup in a classic green with a soft touch finish adds a special feel.',
-    //    CatergoryId: 1, ImageLink: 'GreenCup.jpg'
-    //    }, {
-    //        ProductId: 2, productName: 'Green Soft Touch Stainless-Steel Cold Cup', Price: 10,
-    //        Despriction: 'Our 24 fl oz stainless-steel cold cup in a classic green with a soft touch finish adds a special feel.',
-    //        CatergoryId: 1, ImageLink: 'DoubleChoc.jpg'
-    //    }, {
-    //        ProductId: 2, productName: 'Green Soft Touch Stainless-Steel Cold Cup', Price: 10,
-    //        Despriction: 'Our 24 fl oz stainless-steel cold cup in a classic green with a soft touch finish adds a special feel.',
-    //        CatergoryId: 1, ImageLink: 'Espresso.jpg'
-    //    }, {
-    //        ProductId: 2, productName: 'Green Soft Touch Stainless-Steel Cold Cup', Price: 10,
-    //        Despriction: 'Our 24 fl oz stainless-steel cold cup in a classic green with a soft touch finish adds a special feel.',
-    //        CatergoryId: 1, ImageLink: 'StrawberryCreme.jpg'
-    //    }]
- 
-    products.forEach(product => (drawProduct(product)))
-
-
+    const products = await getProducts(); 
+    if (products != null)
+        products.forEach(product => drawProduct(product))
+    const categories = ['Home', 'Garden', 'Toys'];
+//        await getCategories();
+    if (categories != null)
+        categories.forEach(category => drawCategory(category))
 }
 
 
