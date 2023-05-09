@@ -1,5 +1,4 @@
-﻿using Entities;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace DTO {
     public class CategoryDTO 
