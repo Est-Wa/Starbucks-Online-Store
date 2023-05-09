@@ -19,7 +19,7 @@
     </template>
     <template id="temp-category">
         <div class="cb checkbox">
-            <input type="checkbox" class="opt" id="" value="">
+            <input type="checkbox" class="opt" id="categoryChekBox" value="" >
             <label for="">
                 <span class="OptionName"></span>
                 <span class="Count"></span>
@@ -66,7 +66,7 @@
 
     <div id="filters" class="Filters fixedVisible">
         <div class="ResultCount" style="position: absolute; top: 0px;">
-            <a class="Clear" href="">נקה הכל</a>
+            <a class="Clear" href="Products.html">נקה הכל</a>
             <div><span id="counter">  </span> מוצרים</div>
 
             <div>
@@ -81,9 +81,9 @@
 
         <div id="nameFilter" class="nameFilter filterBreak">
 
-            <input type="text" id="nameSearch" class="floatRight" placeholder="חיפוש לפי שם מוצר">
+            <input type="text" id="nameSearch" class="floatRight" placeholder="חיפוש לפי שם מוצר" >
 
-            <button class="floatRight" tabindex="0" onclick="filterProducts()">
+            <button class="floatRight" tabindex="0" onclick="nameFilter()">
                 <span class="header42"><img src="Images/searchIcon.svg" alt="סמל חיפוש"></span>
             </button>
         </div>
@@ -95,7 +95,7 @@
 
             <input type="text" maxlength="9" id="maxPrice" class="priceInputText">
             <span class="priceCurrency">₪</span>
-            <button onclick="filterProducts()">
+            <button onclick="priceFilter()">
                 <span><img src="Images/searchIcon.svg" alt="סמל חיפוש"></span>
             </button>
         </div>
