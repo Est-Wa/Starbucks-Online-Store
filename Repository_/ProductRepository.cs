@@ -17,13 +17,13 @@ namespace Repository
         {
             _storeDbContext = storeDbContext;
         }
-        public async Task<List<Product>> GetProductAsync(int?[] categoryIds, int? minPrice, int? maxPrice, string? productName, string? description) {
+        public async Task<List<Product>> GetProductAsync(IEnumerable<int> categoryIds, int? minPrice, int? maxPrice, string? productName, string? description) {
             var query = _storeDbContext.Products.Where(Product =>
             (description == null ? true : Product.Description.Contains(description)) &&
             (minPrice == null ? true : Product.Price >= minPrice) &&
             (maxPrice == null ? true : Product.Price <= maxPrice) &&
             (productName == null ? true : Product.ProductName.Equals(productName))
-            //&& (categoryIds == null? true: categoryIds.Any(
+            //&& (categoryIds == [] ? true: categoryIds.Any(
             );
             return await query.ToListAsync();
         }
