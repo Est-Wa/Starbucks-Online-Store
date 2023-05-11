@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace  Repository;
 
-public partial class StoreDbContext : DbContext
-{
-    public StoreDbContext()
-    {
+public partial class StoreDbContext : DbContext {
+    public IConfiguration _configuration;
+    public StoreDbContext(IConfiguration configuration) {
+        _configuration = configuration;
     }
 
-    public StoreDbContext(DbContextOptions<StoreDbContext> options)
-        : base(options)
-    {
+    public StoreDbContext(DbContextOptions<StoreDbContext> options, IConfiguration configuration)
+        : base(options) {
+        _configuration = configuration;
     }
 
     public virtual DbSet<Category> Categories { get; set; }
@@ -28,7 +30,9 @@ public partial class StoreDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=srv2\\PUPILS;Database=StoreDB;Trusted_Connection=True;TrustServerCertificate=True");
+      => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("School"));
+   //   => optionsBuilder.UseSqlServer("Server=srv2\\PUPILS;Database=StoreDB;Trusted_Connection=True;TrustServerCertificate=True");
+    //      => optionsBuilder.UseSqlServer("Server=DESKTOP-D9MPGOL\\SQLEXPRESS;Database = StoreDB; Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

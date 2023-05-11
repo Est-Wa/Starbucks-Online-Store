@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using OurWebsite;
 using Repository;
 using Services;
+using NLog.Web;
+using Microsoft.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,11 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapping));//type of what?????????????
 //builder.Services.AddTransient<IPasswordService, PasswordService>();
+
+public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+    .UseStartup<Startup>()
+    .UseNLog();
 
 
 
