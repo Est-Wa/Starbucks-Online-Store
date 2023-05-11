@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <title></title>
     <link href="Style/ShoppingBag.css" rel="stylesheet" />
-    <script src="../Scripts/ShoppingBag.js"></script>
     <template id="temp-row">
         <tr class="item-row">
             <td class="imageColumn"><a rel="lightbox" href="#"><div class="image"></div></a></td>
             <td class="descriptionColumn"><div><h3 class="itemName"></h3><h6><p class="itemNumber"></p><a href="#">לפרטים נוספים</a></h6></div></td>
             <td class="availabilityColumn"><div><h3 class="itemName">במלאי</h3></div></td>
-            <td class="totalColumn delete"><div class="expandoHeight" style="height: 99px;"><p class="price"></p><a href="#" title="לחצו כאן כדי להסיר את פריט זה" class="Hide DeleteButton showText">הסרת פריט</a></div></td>
+            <td class="amountColumn"><div><button id="more">+</button><h3></h3><button id="less">-</button></div></td>
+            <td class="totalColumn delete"><div class="expandoHeight" style="height: 99px;"><p class="price"></p><a href="#" title="לחצו כאן כדי להסיר את פריט זה" class="Hide DeleteButton showText" id="deleteButton">הסרת פריט</a></div></td>
         </tr>
     </template>
 </head>
@@ -29,6 +29,7 @@
                     <tr>
                         <th class="itemsColumn" colspan="2">פריטים</th>
                         <th>זמינות</th>
+                        <th class="amount">כמות</th>
                         <th class="totalColumn">סכום ההזמנה</th>
                     </tr>
                 </thead>
@@ -37,4 +38,5 @@
         </div>
     </div>
 </body>
+<script src="../Scripts/ShoppingBag.js"></script>
 </html>
