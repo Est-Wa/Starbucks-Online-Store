@@ -4,11 +4,17 @@
 function onload() {
     const cart = JSON.parse(localStorage.getItem('cart'))
     drawProducts(cart)
+    setHead(cart);
 }
 
+function setHead(products) {
+    let count = 0, sum = 0;
+    products.forEach(p => { count += p.amount; sum += (p.amount * p.price) })
+    document.getElementById('itemCount').textContent = count;
+    document.getElementById('totalAmount').textContent = sum;
+}
 
-
-function changeAmount(productId, itemNumber, operation) {
+function changeAmount(productId, operation) {
     let products = JSON.parse(localStorage.getItem('cart'))
     let amount;
     products.forEach(p => { if (p.productId == productId) { operation == '-' ? p.amount -= 1 : p.amount+=1; amount = p.amount } })
@@ -16,8 +22,8 @@ function changeAmount(productId, itemNumber, operation) {
         deleteItem(productId)
         return
     }
-    itemNumber.textContent = amount
-   
+    setHead(products);
+    drawProducts(products)
     localStorage.setItem('cart', JSON.stringify(products))
 }
 
@@ -25,6 +31,7 @@ function deleteItem(productId) {
     let products = JSON.parse(localStorage.getItem('cart'))
     products = products.filter(p => p.productId != productId)
     localStorage.setItem('cart', JSON.stringify(products))
+    setHead(products);
     drawProducts(products)
 }
 
@@ -40,7 +47,7 @@ function drawProduct(product) {
     console.log(template)
     let clone = template.content.cloneNode(true);
 
-    let img = clone.querySelector('.imageColumn .image')
+    let img = clone.querySelector('img')
     img.src = `../Images/Products/${product.imageLink}`;
     img.alt = product.imageLink;
 
@@ -50,11 +57,14 @@ function drawProduct(product) {
     let itemNumber = clone.querySelector('.amountColumn h3')
     itemNumber.textContent = product.amount
 
+    let price = clone.querySelector('.price')
+    price.textContent = `$${product.price * product.amount}`
+
     let more = clone.querySelector('.amountColumn #more')
-    more.addEventListener('click', () => { changeAmount(product.productId, itemNumber,'+') })
+    more.addEventListener('click', () => { changeAmount(product.productId,'+') })
 
     let less = clone.querySelector('.amountColumn #less')
-    less.addEventListener('click', () => { changeAmount(product.productId, itemNumber,'-') })
+    less.addEventListener('click', () => { changeAmount(product.productId,'-') })
 
     let deleteButton = clone.querySelector('#deleteButton')
     console.log(deleteButton)

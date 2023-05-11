@@ -52,7 +52,14 @@ td {
     color: #4D8958;
     font-family: 'azo-sans', sans-serif;
 }
-.imageColumn div {
+
+
+.amountColumn {
+    width: 100px;
+}
+
+
+img {
     width: 66px;
     height: 99px;
     background-repeat: no-repeat;
@@ -89,14 +96,26 @@ td {
     margin-bottom: 2px;
     font-family: 'azo-sans', sans-serif;
     font-weight: 600 !important;
+    position:relative;
+    top: 30px;
 }
 
+
+
 #title {
+    display: grid;
+    grid-template-columns: 12% 12% 12% 12% 12% 12%;
+    grid-template-rows: auto;
+    grid-template-areas:
+        'header header . . . .'
+        'title title . . checkOut continue';
+    gap: 10px;
     margin: 8px 0 12px;
     padding-left: 15px;
 }
 
     #title h1 {
+        grid-area:header;
         margin: 15px 0 2px 0;
         font-family: 'azo-sans', sans-serif;
         font-size: 18px;
@@ -110,10 +129,37 @@ h1 {
 }
 
 #title p {
-    font-size: 11px;
+    grid-area: title;
+    font-family: 'azo-sans', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 100%;
     float: right;
-    padding-right: 10px;
-    padding-top: 19px;
+}
+
+.GoToCheckout {
+    grid-area: checkOut;
+    color: black;
+    text-decoration: none;
+    font-family: 'azo-sans', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 100%;
+    float: left;
+    position: relative;
+    top: 40%;
+}
+.continue {
+    grid-area: continue;
+    color: black;
+    text-decoration: none;
+    font-family: 'azo-sans', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 100%;
+    float: left;
+    position: relative;
+    top: 40%;
 }
 
 p, fieldset {
@@ -152,4 +198,43 @@ a.GoToCheckout.TopLink {
     border-radius: 3px;
     display: inline-block;
     padding: 4px 10px;
+}
+
+.amountColumn div {
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    top:20px;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-template-rows: auto;
+    grid-template-areas:
+        'less text more';
+}
+
+.amountColumn button{
+    height:25px;
+    font-size:20px;
+    background-color:white;
+    border:none;
+    border: 1px solid gray;
+    border-radius:20%;
+}
+
+#more {
+    grid-area:more;
+}
+
+#less{
+    grid-area:less;
+}
+
+.amountColumn h3{
+    text-align:center;
+    grid-area:text;
+}
+
+#deleteButton{
+    position:relative;
+    top:40px;
 }
