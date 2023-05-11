@@ -81,31 +81,9 @@ function drawCategory(category) {
 }
 
 async function onload() {
-    const products = [{
-        ProductId: 1, productName: 'Iced Chai Tea Latte', price: 15,
-        Despriction: 'Black tea infused with cinnamon, clove, and other warming spices are combined with milk and ice for the perfect balance of sweet and spicy.',
-        CatergoryId: 1, imageLink: 'IcedChai.jpg'
-    }, {
-        ProductId: 2, productName: 'Green Soft Touch Stainless-Steel Cold Cup', price: 10,
-        Despriction: 'Our 24 fl oz stainless-steel cold cup in a classic green with a soft touch finish adds a special feel.',
-        CatergoryId: 1, imageLink: 'GreenCup.jpg'
-    }, {
-        ProductId: 3, productName: 'Green Soft Touch Stainless-Steel Cold Cup', price: 10,
-        Despriction: 'Our 24 fl oz stainless-steel cold cup in a classic green with a soft touch finish adds a special feel.',
-        CatergoryId: 1, imageLink: 'DoubleChoc.jpg'
-    }, {
-        ProductId: 4, productName: 'Green Soft Touch Stainless-Steel Cold Cup', price: 10,
-        Despriction: 'Our 24 fl oz stainless-steel cold cup in a classic green with a soft touch finish adds a special feel.',
-        CatergoryId: 1, imageLink: 'Espresso.jpg'
-    }, {
-        ProductId: 5, productName: 'Green Soft Touch Stainless-Steel Cold Cup', price: 10,
-        Despriction: 'Our 24 fl oz stainless-steel cold cup in a classic green with a soft touch finish adds a special feel.',
-        CatergoryId: 1, imageLink: 'StrawberryCreme.jpg'
-    }];
-    // await getProducts();
+    const products = await getProducts();
     drawProducts(products)
-    const categories = null;
-//        await getCategories();
+    const categories = await getCategories();
     if (categories != null)
         categories.forEach(category => drawCategory(category))
     setAmountOfItems()
@@ -160,7 +138,7 @@ function addToCart(product) {
     let inCart = false;
     if (cart != null) {
         cart = JSON.parse(cart)
-        cart.forEach((p) => { if (p.ProductId == product.ProductId) { p.amount += 1; inCart = true } })
+        cart.forEach((p) => { if (p.productId == product.productId) { p.amount += 1; inCart = true } })
         if (!inCart) {
             cart.push({ ...product, amount: 1 }) }
         localStorage.setItem('cart', JSON.stringify(cart))

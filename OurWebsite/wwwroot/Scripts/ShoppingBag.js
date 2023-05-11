@@ -11,7 +11,7 @@ function onload() {
 function changeAmount(productId, itemNumber, operation) {
     let products = JSON.parse(localStorage.getItem('cart'))
     let amount;
-    products.forEach(p => { if (p.ProductId == productId) { operation == '-' ? p.amount -= 1 : p.amount+=1; amount = p.amount } })
+    products.forEach(p => { if (p.productId == productId) { operation == '-' ? p.amount -= 1 : p.amount+=1; amount = p.amount } })
     if (amount == 0) {
         deleteItem(productId)
         return
@@ -23,7 +23,7 @@ function changeAmount(productId, itemNumber, operation) {
 
 function deleteItem(productId) {
     let products = JSON.parse(localStorage.getItem('cart'))
-    products = products.filter(p => p.ProductId != productId)
+    products = products.filter(p => p.productId != productId)
     localStorage.setItem('cart', JSON.stringify(products))
     drawProducts(products)
 }
@@ -51,14 +51,14 @@ function drawProduct(product) {
     itemNumber.textContent = product.amount
 
     let more = clone.querySelector('.amountColumn #more')
-    more.addEventListener('click', () => { changeAmount(product.ProductId, itemNumber,'+') })
+    more.addEventListener('click', () => { changeAmount(product.productId, itemNumber,'+') })
 
     let less = clone.querySelector('.amountColumn #less')
-    less.addEventListener('click', () => { changeAmount(product.ProductId, itemNumber,'-') })
+    less.addEventListener('click', () => { changeAmount(product.productId, itemNumber,'-') })
 
     let deleteButton = clone.querySelector('#deleteButton')
     console.log(deleteButton)
-    deleteButton.addEventListener('click', () => { deleteItem(product.ProductId) })
+    deleteButton.addEventListener('click', () => { deleteItem(product.productId) })
 
 
     let items = document.querySelector('#items tbody')
