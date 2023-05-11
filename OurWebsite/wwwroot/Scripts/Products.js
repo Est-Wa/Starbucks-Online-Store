@@ -10,7 +10,7 @@ async function getProducts() {
             headers: { "Content-Type": "application/json; charset=utf-8" },
             method: "GET",
         });
-        if (res.data !=null) {
+        if (res.ok == true) {
             const data = await res.json();
             return data
         }
@@ -35,7 +35,8 @@ function drawProduct(product) {
     price.textContent = `${product.price}$`
     let description = clone.querySelector(".description");
     description.textContent = product.description;
-    document.body.appendChild(clone);
+    const productList = document.getElementById('ProductList')
+    productList.appendChild(clone);
 }
 
 async function getCategories() {
@@ -44,7 +45,7 @@ async function getCategories() {
             headers: { "Content-Type": "application/json; charset=utf-8" },
             method: "GET",
         });
-        if (res.data != null) {
+        if (res.ok == true) {
             const data = await res.json();
             return data
         }
@@ -61,20 +62,21 @@ function drawCategory(category) {
     let template = document.getElementById("temp-category");
     let clone = template.content.cloneNode(true);
     let span = clone.querySelector(".OptionName");
-    span.textContent = category.name
+    span.textContent = category.categoryName
     let chekBox = clone.querySelector("#categoryChekBox")
     console.log(chekBox)
-    chekBox.addEventListener('change', (e)=>categoryFilter(category.id,e))
+    chekBox.addEventListener('change', (e) => categoryFilter(category.categoryId, e))
     let categoryList = document.getElementById('categoryList')
     categoryList.appendChild(clone);
 }
 
 async function onload() {
-    const products = await getProducts(); 
-    if (products != null)
-        products.forEach(product => drawProduct(product))
-    const categories = [{ name: 'Home', id: 1 }, { name: 'Garden', id: 2 }, { name: 'Toys', id: 3 }];
-    //await getCategories();
+    const products = await getProducts();
+    if (products != null) { 
+        const productList = document.getElementById('ProductList')
+        productList.innerHTML = '';
+        products.forEach(product => drawProduct(product))}
+    const categories = await getCategories();
     if (categories != null)
         categories.forEach(category => drawCategory(category))
 }
@@ -87,7 +89,7 @@ async function filter() {
 
 }
 
-function categoryFilter(categoryId,e) {
+async function categoryFilter(categoryId,e) {
     if(e.target.checked){
         categoryIds.push(categoryId)
     }
@@ -95,17 +97,32 @@ function categoryFilter(categoryId,e) {
         categoryIds = categoryIds.filter(c => c != categoryId)
     }
     console.log(categoryIds)
-    getProducts()
+    const products = await getProducts();
+    if (products != null) {
+        const productList = document.getElementById('ProductList')
+        productList.innerHTML = '';
+        products.forEach(product => drawProduct(product))
+    }
 }
 
-function nameFilter() {
+async function nameFilter() {
     const input = document.getElementById('nameSearch')
     productName = input.value
-    getProducts()
+    const products = await getProducts();
+    if (products != null) {
+        const productList = document.getElementById('ProductList')
+        productList.innerHTML = '';
+        products.forEach(product => drawProduct(product))
+    }
 }
 
-function priceFilter() {
+async function priceFilter() {
     minPrice = document.getElementById('minPrice').value
     maxPrice = document.getElementById('maxPrice').value
-    getProducts()
+    const products = await getProducts();
+    if (products != null) {
+        const productList = document.getElementById('ProductList')
+        productList.innerHTML = '';
+        products.forEach(product => drawProduct(product))
+    }
 }

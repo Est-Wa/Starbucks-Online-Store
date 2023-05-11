@@ -17,15 +17,15 @@ namespace Repository
         {
             _storeDbContext = storeDbContext;
         }
-        public async Task<List<Product>> GetProductAsync(IEnumerable<int> categoryIds, int? minPrice, int? maxPrice, string? productName, string? description) {
+        public async Task<List<Product>> GetProductAsync(IEnumerable<int?> categoryIds, int? minPrice, int? maxPrice, string? productName, string? description) {
             var query = _storeDbContext.Products.Where(Product =>
             (description == null ? true : Product.Description.Contains(description)) &&
             (minPrice == null ? true : Product.Price >= minPrice) &&
             (maxPrice == null ? true : Product.Price <= maxPrice) &&
-            (productName == null ? true : Product.ProductName.Equals(productName))
-            //&& (categoryIds == [] ? true: categoryIds.Any(
-            );
+            (productName == null ? true : Product.ProductName.Contains(productName))
+            && (categoryIds.Count() <= 0 ? true : categoryIds.Contains(Product.CategoryId)));
             return await query.ToListAsync();
+            
         }
         public async Task<int> AddProduct(Product product)
         {
