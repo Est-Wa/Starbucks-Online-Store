@@ -114,7 +114,7 @@ async function placeOrder() {
         }
         else {
             alert('oreder placed successfully');
-            localStorage.setItem('cart',null);
+            localStorage.removeItem('cart');
             window.location.href = "products.html";
         }
     }

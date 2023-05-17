@@ -135,9 +135,9 @@ async function priceFilter() {
 
 function addToCart(product) {
     let cart = localStorage.getItem('cart')
+    cart = JSON.parse(cart)
     let inCart = false;
     if (cart != null) {
-        cart = JSON.parse(cart)
         cart.forEach((p) => { if (p.productId == product.productId) { p.amount += 1; inCart = true } })
         if (!inCart) {
             cart.push({ ...product, amount: 1 }) }
