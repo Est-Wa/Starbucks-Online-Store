@@ -29,14 +29,16 @@ namespace OurWebsite.Controllers
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        public string? Get(int id)
+        public async Task<ActionResult<string>> Get(int id)
         {
-            return null;
+            User u =  await _userService.GetUser(id);
+            UserNoPWDTO user = _mapper.Map<User, UserNoPWDTO>(u);
+            return Ok(user);
         }
 
-        // POST api/<UsersController>
+        //POST api/<UsersController>
         [HttpPost("register")]
-        public async Task<ActionResult<UserOld>> RegisterPost([FromBody] UserDTO user)
+        public async Task<ActionResult<UserNoPWDTO>> RegisterPost([FromBody] UserDTO user)
         {
             _logger.LogInformation($"register attempt, User name: {user.UserName}, etc.");
             PasswordService pw = new PasswordService();
@@ -45,19 +47,21 @@ namespace OurWebsite.Controllers
                 return BadRequest("password strength is too low");
             var _user = _mapper.Map<User>(user);
                    user.UserId = await _userService.AddUser(_user);
+            var uToReturn = _mapper.Map<User, UserNoPWDTO>(_user);
             _logger.LogInformation($"successfull register, user: {user}");
-            return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
+            return CreatedAtAction(nameof(Get), new { id = user.UserId }, uToReturn);
         }
 
         // POST api/<UsersController>
         [HttpPost("login")]
-        public async Task<ActionResult<User>> LoginPost([FromBody] UserOld user)
+        public async Task<ActionResult<UserNoPWDTO>> LoginPost([FromBody] UserOld user)
         {
             _logger.LogInformation($"attempt to login, user: {user}");
             User data = await _userService.Login(user);
             if (data != null) {
                 _logger.LogInformation($"login success, user: {user}");
-                return data;
+                UserNoPWDTO u = _mapper.Map<User, UserNoPWDTO>(data);
+                return u;
 
             }
             _logger.LogInformation($"failed to login, user: {user}");

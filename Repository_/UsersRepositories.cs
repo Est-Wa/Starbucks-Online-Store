@@ -24,6 +24,13 @@ namespace Repository
             return user.UserId;
         }
 
+        public async Task<User> GetUser(int id)
+        {
+            User u =  await _storeDbContext.Users.FindAsync(id);
+            return u;
+
+        }
+
         public async Task<User> Login(UserOld user) {
             //return null;
             var created = await _storeDbContext.Users.Where(u=> u.UserName == user.UserName && u.Password == user.Password).ToListAsync();

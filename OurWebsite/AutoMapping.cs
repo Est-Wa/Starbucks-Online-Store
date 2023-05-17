@@ -14,15 +14,16 @@ namespace OurWebsite {
         {
 
             CreateMap<Category, CategoryDTO>().ReverseMap();
-            CreateMap<LoginDTO, User>().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
+            CreateMap<UserNoPWDTO, User>().ReverseMap();
+            CreateMap<User, LoginDTO>().ReverseMap();
+
 
             CreateMap<ProductDTO, Product>();
 
-            CreateMap<Product, ProductDTO>().ForMember(productDto => productDto.CategoryName,
-                opt => opt.MapFrom(product => product.Category.CategoryName))
+            CreateMap<Product, ProductDTO>()
                 .ForMember(productDto => productDto.CategoryId,
                 opt => opt.MapFrom(product => product.CategoryId));
 

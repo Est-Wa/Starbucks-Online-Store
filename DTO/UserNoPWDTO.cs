@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class LoginDTO
+    public  class UserNoPWDTO
     {
-        public string Password { get; set; } = null!;
+        public int UserId { get; set; }
 
-        [EmailAddress(ErrorMessage = "Email address incorrect")]
         public string UserName { get; set; } = null!;
 
+        public string? FirstName { get; set; }
+
+        public string? LastName { get; set; }
+
+        public string? Email { get; set; }
     }
 }

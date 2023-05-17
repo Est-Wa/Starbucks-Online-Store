@@ -18,6 +18,12 @@ namespace Services
             //    return 0;
             return await _userRepository.AddUser(user);
         }
+
+        public async Task<User> GetUser(int id)
+        {
+           return await _userRepository.GetUser(id);
+        }
+
         public async Task<User> Login(UserOld user) {
             return await _userRepository.Login(user);
         }

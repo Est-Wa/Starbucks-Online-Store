@@ -19,9 +19,12 @@ namespace OurWebsite.Controllers
             _mapper = mapper;
         }
         [HttpGet()]
-        public async Task<ActionResult<List<Product>>> Get([FromQuery] IEnumerable<int?> categoryIds, [FromQuery] int? minPrice, [FromQuery] int? maxPrice, [FromQuery] string? productName, [FromQuery] string? description)
+        public async Task<ActionResult<List<ProductDTO>>> Get([FromQuery] IEnumerable<int?> categoryIds, [FromQuery] int? minPrice, [FromQuery] int? maxPrice, [FromQuery] string? productName, [FromQuery] string? description)
         {
-            return await _productService.GetProductAsync(categoryIds, minPrice, maxPrice, productName, description);
+            List<Product> prds = await _productService.GetProductAsync(categoryIds, minPrice, maxPrice, productName, description);
+            List<ProductDTO> prdsDTO = _mapper.Map<List<Product>, List<ProductDTO>>(prds);
+
+            return prds == null ? NoContent() : Ok(prdsDTO);
         }
         [HttpPost()]
         public async Task<ActionResult<int>> Post([FromBody] ProductDTO product)
