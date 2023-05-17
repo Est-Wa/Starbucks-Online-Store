@@ -29,7 +29,7 @@ namespace OurWebsite
 
             await ratingService.AddRating(rate);
 
-            _next(httpContext);
+            await _next(httpContext);
         }
     }
 
