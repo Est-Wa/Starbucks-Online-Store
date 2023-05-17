@@ -61,8 +61,8 @@ p.description {
     color: white;
     /* display: inline-block; */
     position: absolute;
-     margin: 20px; 
-    /* display: block; */
+/*     margin: 20px; 
+*/    /* display: block; */
     top: 8px;
     left: 51%;
     font-family: Helvetica;
@@ -92,8 +92,12 @@ p.description {
     }
 
 .bar {
-    background-color: black;
+    position: fixed;
+    top: 0;
+    width: 100%;
     height: 35px;
+    z-index:101;
+    background-color: black;
 }
 
 .Icon {
@@ -173,9 +177,9 @@ p.description {
     width: 184px;
     float: right;
     margin: 4px 4px;
-    padding-top: 50px;
+    padding-top: 15px;
     padding-bottom: 10px;
-    z-index: 102;
+    z-index: 10;
     background-color: rgb(249, 249, 249);
     font-family: Arial;
     font-size: 14px;
@@ -213,25 +217,7 @@ p.description {
     margin-right: -19px;
 }
 
-.pagination {
-    display: inline-block;
-}
 
-    .pagination a {
-        color: black;
-        float: left;
-        padding: 8px 16px;
-        text-decoration: none;
-    }
-
-        .pagination a.active {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .pagination a:hover:not(.active) {
-            background-color: #ddd;
-        }
 
 .description {
     height: 120px;
@@ -242,3 +228,4 @@ p.description {
     width:100%;
 }
 */
+
