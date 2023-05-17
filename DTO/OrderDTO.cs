@@ -15,7 +15,8 @@ namespace DTO {
 
         public int? UserId { get; set; }
 
-       // public virtual User? User { get; set; }
-        public virtual string? UserN { get; set; }
+        public virtual ICollection<OrderItemDTO> OrderItems { get; set; } 
+
+        // public virtual User? User { get; set; }
     }
 }

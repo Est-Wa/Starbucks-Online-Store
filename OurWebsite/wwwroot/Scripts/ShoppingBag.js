@@ -78,6 +78,48 @@ function drawProduct(product) {
 
 
 
-function placeOrder() {
-    console.log("hi");
+async function placeOrder() {
+
+    let u = JSON.parse(sessionStorage.getItem("userInfo")).id;
+    console.log(u);
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    let items = [];
+    for (let c in cart) {
+        let i = {
+            "productId": cart[c].productId,
+            "quantity": cart[c].amount
+        };
+        items.push(i);
+    }
+
+    let sum = 0;
+    cart.forEach(p => sum += (p.amount * p.price));
+    const order = {
+        orderDate: (new Date()).toISOString().slice(0, 10),
+        "orderSum": sum,
+        "userId": u,
+        "orderItems": items
+    };
+
+    console.log(order);
+
+    try {
+        const res = await fetch("api/Orders", {
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            method: "POST",
+            body: JSON.stringify(order)
+        })
+        if (!res.ok) {
+            alert('couldnt place order')
+        }
+        else {
+            alert('oreder placed successfully');
+            localStorage.setItem('cart',null);
+            window.location.href = "products.html";
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }
+    
 }

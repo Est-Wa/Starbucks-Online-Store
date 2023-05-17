@@ -33,5 +33,11 @@ namespace Repository
             await _storeDbContext.SaveChangesAsync();
             return product.ProductId;
         }
+
+        public async Task<int> getItemPrice(int prodId)
+        {
+            Product p = await _storeDbContext.Products.FindAsync(prodId);
+            return p.Price;
+        }
     }
 }
