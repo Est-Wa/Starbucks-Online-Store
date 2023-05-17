@@ -1,11 +1,12 @@
-﻿using Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
+using Microsoft.EntityFrameworkCore;
+using Entities;
 
 namespace Repository
 {
@@ -25,12 +26,12 @@ namespace Repository
 
         public async Task<User> Login(UserOld user) {
             //return null;
-            var created = await _storeDbContext.Users.FindAsync(user.UserName);
-            return created;
+            var created = await _storeDbContext.Users.Where(u=> u.UserName == user.UserName && u.Password == user.Password).ToListAsync();
+            return created[0];
         }
 
         public async Task<Boolean> Update(User user, int id) {
-            var foundUser = await _storeDbContext.Users.FindAsync(id);
+            User foundUser = await _storeDbContext.Users.FindAsync(id);
             if (foundUser != null)
             {
                 _storeDbContext.Entry(foundUser).CurrentValues.SetValues(user);

@@ -40,6 +40,7 @@ ul {
     float: left;
     height: 550px;
     margin: 6px;
+    height:600px;
 }
 
 .img-w {
@@ -82,6 +83,8 @@ p.description {
     cursor: pointer;
     width: 100%;
     font-size: 18px;
+   /* position:absolute;
+    bottom:0;*/
 }
 
     .card button:hover {
@@ -166,13 +169,12 @@ p.description {
 
 
 .Filters {
-    position: absolute;
+    position: fixed;
     width: 184px;
     float: right;
     margin: 4px 4px;
     padding-top: 50px;
     padding-bottom: 10px;
-    position: absolute;
     z-index: 102;
     background-color: rgb(249, 249, 249);
     font-family: Arial;
@@ -230,3 +232,13 @@ p.description {
         .pagination a:hover:not(.active) {
             background-color: #ddd;
         }
+
+.description {
+    height: 120px;
+}
+
+/*header{
+    position:fixed;
+    width:100%;
+}
+*/

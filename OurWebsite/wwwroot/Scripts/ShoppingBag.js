@@ -78,3 +78,6 @@ function drawProduct(product) {
 
 
 
+function placeOrder() {
+    console.log("hi");
+}

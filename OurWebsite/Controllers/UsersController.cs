@@ -17,8 +17,8 @@ namespace OurWebsite.Controllers
 
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
-        public UsersController(IUserService userService, IMapper mapper, ILogger logger)
+        private readonly ILogger<UsersController> _logger;
+        public UsersController(IUserService userService, IMapper mapper, ILogger<UsersController> logger)
         {
             _userService = userService;
             _mapper = mapper;

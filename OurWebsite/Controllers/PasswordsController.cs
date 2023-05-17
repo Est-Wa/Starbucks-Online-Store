@@ -10,8 +10,12 @@ namespace OurWebsite.Controllers
     {
         //POST api/<UsersController>
         [HttpPost]
-        public int CheckPassword([FromBody] string password)
+        public ActionResult<int> CheckPassword([FromBody] string password)
         {
+            if (password == "")
+            {
+                return 0;
+            }
             PasswordService pw = new PasswordService();
             int result = pw.checkPassword(password);
             return result;

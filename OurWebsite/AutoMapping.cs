@@ -12,23 +12,37 @@ namespace OurWebsite {
     {
         public AutoMapping() 
         {
-            CreateMap<Category, CategoryDTO>();
 
-            CreateMap<ProductDTO, ProductDTO>()
-                .ForMember(dest => dest.CategoryName,
-                opts => opts.MapFrom(src=>src.CategoryName)
-             );
+            CreateMap<Category, CategoryDTO>().ReverseMap();
+            CreateMap<LoginDTO, User>().ReverseMap();
+            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<Order, OrderDTO>().ReverseMap();
+            CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
 
-            CreateMap<Order, OrderDTO>()
-                .ForMember(dest => dest.UserN,
-                opts => opts.MapFrom(src => src.User.FirstName));
+            CreateMap<ProductDTO, Product>();
 
-            CreateMap<User, UserDTO>();
-            CreateMap<OrderItem, OrderItemDTO>()
-                .ForMember(dest => dest.ProductName,
-                opts => opts.MapFrom(src => src.Product.ProductName));
+            CreateMap<Product, ProductDTO>().ForMember(productDto => productDto.CategoryName,
+                opt => opt.MapFrom(product => product.Category.CategoryName))
+                .ForMember(productDto => productDto.CategoryId,
+                opt => opt.MapFrom(product => product.CategoryId));
 
-            CreateMap<OrderItem, OrderItemDTO>();
+            //CreateMap<Category, CategoryDTO>();
+
+            //CreateMap<ProductDTO, ProductDTO>()
+            //    .ForMember(dest => dest.CategoryName,
+            //    opts => opts.MapFrom(src=>src.CategoryName)
+            // );
+
+            //CreateMap<Order, OrderDTO>()
+            //    .ForMember(dest => dest.UserN,
+            //    opts => opts.MapFrom(src => src.User.FirstName));
+
+            //CreateMap<User, UserDTO>();
+            //CreateMap<OrderItem, OrderItemDTO>()
+            //    .ForMember(dest => dest.ProductName,
+            //    opts => opts.MapFrom(src => src.Product.ProductName));
+
+            //CreateMap<OrderItem, OrderItemDTO>();
 
         }
     }

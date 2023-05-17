@@ -4,9 +4,9 @@
 
     <meta charset="utf-8" />
     <title></title>
-    <link rel="stylesheet" href="style.css">
-    <script src="login.js"></script>
-    <script src="style.js"></script>
+    <link href="Style/style.css" rel="stylesheet" />
+    <script src="Scripts/login.js"></script>
+    <script src="Scripts/style.js"></script>
 </head>
 
 <body>
@@ -20,16 +20,17 @@
                     <button class="btn-new" id="goToRegister" onclick="switchVisible()" >Create new account</button>
                 </div>
                 <div class="form-container" id="register">
-                    <div>
-                        <label for="progress">Password Strength:</label>
-                        <progress id="progress", value="3" max="8"> </progress>
-                    </div>
+
                     <input type="text" id="userName" placeholder="User name">
-                    <input type="password" id="password" placeholder="Password" onblur="checkPWbefore()"/>
+
                     <input type="text" id="firstName" placeholder="First name" />
                     <input type="text" id="lastName" placeholder="Last name" />
+                    <input type="email" id="email" placeholder="Email Address" />
+                    <input type="password" id="password" placeholder="Password" onblur="checkPWbefore()" />
+                    <label for="progress">Password Strength:</label>
+                    <progress id="progress" , value="0" max="4"> </progress>
                     <button class="btn-login" onclick="register()">Sign up</button>
-                    <button class="btn-new" id="goToLogin" onclick="switchVisible()" >Already have an account?</button>
+                    <button class="btn-new" id="goToLogin" onclick="switchVisible()">Already have an account?</button>
                 </div>
             </div>
         </div>

@@ -5,8 +5,10 @@ using Repository;
 using Services;
 using NLog.Web;
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseNLog();
 
 // Add services to the container.
 
@@ -24,26 +26,17 @@ builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 
-builder.Services.AddAutoMapper(typeof(AutoMapping));//type of what?????????????
-//builder.Services.AddTransient<IPasswordService, PasswordService>();
+builder.Services.AddTransient<IRatingService, RatingService>();
+builder.Services.AddTransient<IRatingRepository, RatingRepository>();
 
-public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-    WebHost.CreateDefaultBuilder(args)
-    .UseStartup<Startup>()
-    .UseNLog();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-
-
-
-builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer("Data Sourece = srv2\\pupils ; Initial Catalog = StoreDB ; Integrated Security = True; Pooling = False"));
+builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(connectionString: builder.Configuration.GetConnectionString("School")));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
 var app = builder.Build();
-
 
 if (app.Environment.IsDevelopment())
 {
@@ -51,7 +44,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
+app.UseRatingMiddleware();
+
+app.UseErrorHandlingMiddleware();
 
 app.UseHttpsRedirection();
 
@@ -60,5 +56,15 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseStaticFiles();
+
+app.Use(async (context, next) =>
+{
+    await next(context);
+    if (context.Response.StatusCode == 404)
+    {
+        context.Response.ContentType = "text/html";
+        await context.Response.SendFileAsync("./wwwroot/pages/404.html");
+    }
+});
 
 app.Run();
