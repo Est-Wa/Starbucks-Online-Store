@@ -2,8 +2,8 @@
 This is an online store for Starbucks coffee and products, built using ASP.NET Core 7.0. The project follows a REST API architecture and incorporates server-side and client-side validations for enhanced security. It emphasizes password strength checks to ensure the safety of user accounts. 
 The project is structured based on a layered model and utilizes Dependency Injection (DI) for loose coupling and improved testability. 
 Async-await is used throughout the application to support scalability. 
-The project also includes a DTO layer with object mapping using AutoMapper in order to prevent circular dependencies between objects and provide encapsulation..
-
+The project includes a DTO layer with object mapping using AutoMapper in order to prevent circular dependencies between objects and provide encapsulation. 
+It integrates Swagger for API documentation and provides logging to files and email notifications for error handling.
 ## Technologies
 -	C#
 -	ASP.NET Core 7.0
@@ -23,7 +23,7 @@ To set up and run the Starbucks Online Store on your local machine, follow these
 4.	Run the application.
 ## Usage
 Once the application is running, you can interact with the Starbucks Online Store through its API endpoints. You can use a web browser or tools like Swagger to explore and interact with the available endpoints.
-Configuration
+## Configuration
 The project's configuration can be found in the appsettings.json file. It includes settings such as the database connection string.
 ## Contributors
 - [Bracha Heimowitz](https://github.com/bhandho)
