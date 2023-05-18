@@ -6,31 +6,46 @@
     <link href="Style/ShoppingBag.css" rel="stylesheet" />
     <template id="temp-row">
         <tr class="item-row">
-            <td class="imageColumn"><a rel="lightbox" href="#"><img style="width:100%"></a></td>
+            <td class="imageColumn"><a rel="lightbox" href="#"><img/></a></td>
             <td class="descriptionColumn"><div><h3 class="itemName"></h3><h6><p class="itemNumber"></p></h6></div></td>
-            <td class="availabilityColumn"><div><h3 class="itemName">במלאי</h3></div></td>
+            <td class="availabilityColumn"><div><h3 class="itemName">In stock</h3></div></td>
             <td class="amountColumn"><div><button id="more">+</button><h3></h3><button id="less">-</button></div></td>
-            <td class="totalColumn delete"><div class="expandoHeight" ><p class="price"></p><a href="#" title="לחצו כאן כדי להסיר את פריט זה" class="Hide DeleteButton showText" id="deleteButton">הסרת פריט</a></div></td>
+            <td class="totalColumn delete"><div class="expandoHeight" ><p class="price"></p><a href="#" title="click here to rmeove this item" class="Hide DeleteButton showText" id="deleteButton">remove item</a></div></td>
         </tr>
     </template>
 </head>
 <body>
+    <header>
+        <div class="bar">
+
+            <section class="QuickLinks">
+                <ul>
+                    <li>
+                        <a id="loginOrRegister" href="update.html" title="מעבר לחשבון שלי">My account</a>
+                    </li>
+                    <li>
+                        <a class="continue" href="Products.html">Continue shopping</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </header>
     <div class="cart">
         <div id="title">
-            <h1> סל קניות </h1>
+            <h1> Shopping bag </h1>
             <p>
-                הסל שלך מכיל <span id="itemCount"></span> פריטים ומגיע לסך של <span id="totalAmount"></span>$
+                Your bag contains <span id="itemCount"></span> items, amount to pay is: <span id="totalAmount"></span>$
             </p>
-            <a class="GoToCheckout" href="#" onclick="placeOrder(); return false;">לביצוע ההזמנה</a> <a class="continue"href="Products.html?fromShoppingBag=1">המשך בקניה</a> <div class="ClearBoth"></div>
+            <a class="GoToCheckout" href="#" onclick="placeOrder(); return false;">place order</a> <div class="ClearBoth"></div>
         </div>
         <div class="cistGroup">
             <table id="items" class="items">
                 <thead>
                     <tr>
-                        <th class="itemsColumn" colspan="2">פריטים</th>
-                        <th>זמינות</th>
-                        <th class="amount">כמות</th>
-                        <th class="totalColumn">סכום ההזמנה</th>
+                        <th class="itemsColumn" colspan="2">Items</th>
+                        <th>Availability</th>
+                        <th class="amount">Amount</th>
+                        <th class="totalColumn">Price</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

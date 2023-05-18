@@ -31,7 +31,7 @@
                     <input type="text" id="firstName" placeholder="First name" />
                     <input type="text" id="lastName" placeholder="Last name" />
                     <input type="email" id="email" placeholder="Email Address" />
-                    <input type="password" id="password" placeholder="Password" onblur="checkPWbefore()" />
+                    <input type="password" id="password" placeholder="Password" onkeypress="checkPWbefore()" />
                     <label for="progress">Password Strength:</label>
                     <progress id="progress" , value="0" max="4"> </progress>
                     <button class="btn-login" onclick="register()">Sign up</button>

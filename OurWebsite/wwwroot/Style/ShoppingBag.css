@@ -1,5 +1,4 @@
 ﻿html, body {
-    direction: rtl;
     margin: 0;
     padding: 0;
 }
@@ -10,7 +9,6 @@
 }
 th {
     padding: 9px 11px;
-    text-align: right;
     border-top: 1px solid #C7C5C5;
     border-bottom: 1px solid #C7C5C5;
     font-size: 13px;
@@ -60,7 +58,7 @@ td {
 
 
 img {
-    width: 66px;
+    width: 77px;
     height: 99px;
     background-repeat: no-repeat;
     background-size: contain;
@@ -70,20 +68,20 @@ img {
 .delete a.showText {
     text-indent: 0;
     width: 90px;
-    padding-left: 10px;
+    padding-right: 10px;
     background-image: url(/Images/icn-remove.png);
     height: 24px;
-    background-position: left -3px;
-    font-size: 11px !important;
+    background-position: right -3px;
+    font-size: 14px !important;
     line-height: 15px;
     position:relative;
+    font-family:Calibri;
 }
 
 .delete a {
     display: block;
     background-repeat: no-repeat;
     text-decoration: none;
-    text-align: right;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -97,7 +95,8 @@ img {
     font-family: 'azo-sans', sans-serif;
     font-weight: 600 !important;
     position:relative;
-    top: 30px;
+    top: 20px;
+    text-align:right;
 }
 
 
@@ -108,10 +107,12 @@ img {
     grid-template-rows: auto;
     grid-template-areas:
         'header header . . . .'
-        'title title . . checkOut continue';
-    gap: 10px;
+        'title title title . . checkOut ';
+    gap: 5px;
     margin: 8px 0 12px;
     padding-left: 15px;
+    position: relative;
+    top: 40px;
 }
 
     #title h1 {
@@ -139,18 +140,6 @@ h1 {
 
 .GoToCheckout {
     grid-area: checkOut;
-    color: black;
-    text-decoration: none;
-    font-family: 'azo-sans', sans-serif;
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 100%;
-    float: left;
-    position: relative;
-    top: 40%;
-}
-.continue {
-    grid-area: continue;
     color: black;
     text-decoration: none;
     font-family: 'azo-sans', sans-serif;
@@ -237,4 +226,46 @@ a.GoToCheckout.TopLink {
 #deleteButton{
     position:relative;
     top:40px;
+}
+
+.bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 35px;
+    z-index: 101;
+    background-color: black;
+}
+
+    .bar::before {
+        content: 'Starbucks Coffee';
+        color: white;
+        position: absolute;
+        top: 8px;
+        left: 51%;
+        font-family: Helvetica;
+    }
+ul {
+    margin: 0;
+}
+
+.floatRight {
+    float: right;
+}
+
+.QuickLinks ul li a {
+    display: block;
+    text-decoration: none;
+    font-size: 12px;
+    color: white;
+    font-family: Helvetica;
+    margin: 7px;
+}
+
+.QuickLinks ul li {
+    float: left;
+}
+table {
+    position: relative;
+    top: 40px;
 }

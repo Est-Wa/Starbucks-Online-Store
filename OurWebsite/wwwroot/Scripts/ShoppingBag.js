@@ -44,7 +44,6 @@ function drawProducts(products) {
 
 function drawProduct(product) {
     let template = document.getElementById("temp-row");
-    console.log(template)
     let clone = template.content.cloneNode(true);
 
     let img = clone.querySelector('img')
@@ -67,7 +66,6 @@ function drawProduct(product) {
     less.addEventListener('click', () => { changeAmount(product.productId,'-') })
 
     let deleteButton = clone.querySelector('#deleteButton')
-    console.log(deleteButton)
     deleteButton.addEventListener('click', () => { deleteItem(product.productId) })
 
 
@@ -80,8 +78,12 @@ function drawProduct(product) {
 
 async function placeOrder() {
 
-    let u = JSON.parse(sessionStorage.getItem("userInfo")).id;
-    console.log(u);
+    const user = JSON.parse(sessionStorage.getItem("userInfo"));
+    if (!user) {
+        alert('You must login or register for making an order')
+        return;
+    }
+    const id = user.id;
     const cart = JSON.parse(localStorage.getItem('cart'));
     let items = [];
     for (let c in cart) {
@@ -97,11 +99,9 @@ async function placeOrder() {
     const order = {
         orderDate: (new Date()).toISOString().slice(0, 10),
         "orderSum": sum,
-        "userId": u,
+        "userId": id,
         "orderItems": items
     };
-
-    console.log(order);
 
     try {
         const res = await fetch("api/Orders", {
@@ -113,7 +113,8 @@ async function placeOrder() {
             alert('couldnt place order')
         }
         else {
-            alert('oreder placed successfully');
+            const order = await res.json()
+            alert(`oreder ${order.orderId} placed successfully`);
             localStorage.removeItem('cart');
             window.location.href = "products.html";
         }
