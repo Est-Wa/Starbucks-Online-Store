@@ -18,7 +18,7 @@ namespace OurWebsite {
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
             CreateMap<UserNoPWDTO, User>().ReverseMap();
             CreateMap<User, LoginDTO>().ReverseMap();
-            CreateMap<ProductDTO, Product>()
+            CreateMap<ProductDTO, Product>();
 
             CreateMap<Product, ProductDTO>()
                 .ForMember(productDto => productDto.CategoryId,

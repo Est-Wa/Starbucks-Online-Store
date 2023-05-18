@@ -16,13 +16,15 @@ namespace OurWebsite.Controllers
     {
 
         private readonly IUserService _userService;
+        private readonly IPasswordService _passwordService;
         private readonly IMapper _mapper;
         private readonly ILogger<UsersController> _logger;
-        public UsersController(IUserService userService, IMapper mapper, ILogger<UsersController> logger)
+        public UsersController(IUserService userService, IMapper mapper, ILogger<UsersController> logger, IPasswordService passwordService)
         {
             _userService = userService;
             _mapper = mapper;
             _logger = logger;
+            _passwordService = passwordService;
         }
 
         static private string path = "..//wwwroot";
@@ -41,8 +43,7 @@ namespace OurWebsite.Controllers
         public async Task<ActionResult<UserNoPWDTO>> RegisterPost([FromBody] UserDTO user)
         {
             _logger.LogInformation($"register attempt, User name: {user.UserName}, etc.");
-            PasswordService pw = new PasswordService();
-            int result = pw.checkPassword(user.Password);
+            int result = _passwordService.checkPassword(user.Password);
             if(result<2)
                 return BadRequest("password strength is too low");
             var _user = _mapper.Map<User>(user);

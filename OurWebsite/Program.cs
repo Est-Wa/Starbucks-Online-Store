@@ -29,6 +29,8 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IRatingService, RatingService>();
 builder.Services.AddTransient<IRatingRepository, RatingRepository>();
 
+builder.Services.AddTransient<IPasswordService, PasswordService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(connectionString: builder.Configuration.GetConnectionString("School")));

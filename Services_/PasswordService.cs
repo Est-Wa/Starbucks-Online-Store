@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class PasswordService
+    public class PasswordService:IPasswordService
     {
         public int checkPassword(string pw)
         {

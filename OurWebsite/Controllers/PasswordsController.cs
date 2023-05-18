@@ -8,6 +8,11 @@ namespace OurWebsite.Controllers
     [ApiController]
     public class PasswordsController : ControllerBase
     {
+        private readonly IPasswordService _passwordService;
+        public PasswordsController(IPasswordService passwordService)
+        {
+            _passwordService = passwordService;
+        }
         //POST api/<UsersController>
         [HttpPost]
         public ActionResult<int> CheckPassword([FromBody] string password)
@@ -16,8 +21,7 @@ namespace OurWebsite.Controllers
             {
                 return 0;
             }
-            PasswordService pw = new PasswordService();
-            int result = pw.checkPassword(password);
+            int result = _passwordService.checkPassword(password);
             return result;
         }
     }
