@@ -1,6 +1,5 @@
 ﻿document.addEventListener('load', onload())
 
-
 function onload() {
     const cart = JSON.parse(localStorage.getItem('cart'))
     drawProducts(cart)
@@ -17,7 +16,7 @@ function setHead(products) {
 function changeAmount(productId, operation) {
     let products = JSON.parse(localStorage.getItem('cart'))
     let amount;
-    products.forEach(p => { if (p.productId == productId) { operation == '-' ? p.amount -= 1 : p.amount+=1; amount = p.amount } })
+    products.forEach(p => { if (p.productId == productId) { operation == '-' ? p.amount -= 1 : p.amount += 1; amount = p.amount } })
     if (amount == 0) {
         deleteItem(productId)
         return
@@ -60,10 +59,10 @@ function drawProduct(product) {
     price.textContent = `$${product.price * product.amount}`
 
     let more = clone.querySelector('.amountColumn #more')
-    more.addEventListener('click', () => { changeAmount(product.productId,'+') })
+    more.addEventListener('click', () => { changeAmount(product.productId, '+') })
 
     let less = clone.querySelector('.amountColumn #less')
-    less.addEventListener('click', () => { changeAmount(product.productId,'-') })
+    less.addEventListener('click', () => { changeAmount(product.productId, '-') })
 
     let deleteButton = clone.querySelector('#deleteButton')
     deleteButton.addEventListener('click', () => { deleteItem(product.productId) })
@@ -72,9 +71,6 @@ function drawProduct(product) {
     let items = document.querySelector('#items tbody')
     items.appendChild(clone);
 }
-
-
-
 
 async function placeOrder() {
 
@@ -122,5 +118,4 @@ async function placeOrder() {
     catch (err) {
         console.log(err)
     }
-    
 }

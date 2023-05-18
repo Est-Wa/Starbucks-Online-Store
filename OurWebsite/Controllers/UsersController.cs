@@ -69,7 +69,6 @@ namespace OurWebsite.Controllers
             return NoContent();
         }
 
-
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult<User>> Put(int id, [FromBody] UserDTO user)

@@ -24,10 +24,10 @@ async function getProducts() {
 }
 
 function drawProducts(products) {
-        document.getElementById('counter').textContent = products.length;
-        const productList = document.getElementById('ProductList')
-        productList.innerHTML = '';
-        products.forEach(product => drawProduct(product))
+    document.getElementById('counter').textContent = products.length;
+    const productList = document.getElementById('ProductList')
+    productList.innerHTML = '';
+    products.forEach(product => drawProduct(product))
 }
 
 function drawProduct(product) {
@@ -71,10 +71,10 @@ function drawCategory(category, products) {
     let template = document.getElementById("temp-category");
     let clone = template.content.cloneNode(true);
     if (products != null) {
-            let count = 0;
-            products.forEach((product) => {
-                if (product.categoryId == category.categoryId)
-                    count++
+        let count = 0;
+        products.forEach((product) => {
+            if (product.categoryId == category.categoryId)
+                count++
             clone.querySelector('.Count').textContent = count;
         })
         let span = clone.querySelector(".OptionName");
@@ -87,79 +87,79 @@ function drawCategory(category, products) {
     }
 }
 
-    function setLoginOrOut() {
-        const user = sessionStorage.getItem('userInfo')
-        if (!user) {
-            document.getElementById('loginOrRegister').textContent = 'Login';
-        }
-        else {
-            document.getElementById('loginOrRegister').addEventListener('click', () => sessionStorage.removeItem('userInfo'))
-        }
+function setLoginOrOut() {
+    const user = sessionStorage.getItem('userInfo')
+    if (!user) {
+        document.getElementById('loginOrRegister').textContent = 'Login';
     }
-
-    async function onload() {
-        setLoginOrOut();
-        const categories = await getCategories();
-        const products = await getProducts();
-        drawProducts(products)
-        if (categories != null)
-            categories.forEach(category => drawCategory(category, products))
-        setAmountOfItems()
+    else {
+        document.getElementById('loginOrRegister').addEventListener('click', () => sessionStorage.removeItem('userInfo'))
     }
+}
 
-    function setAmountOfItems() {
-        const cart = JSON.parse(localStorage.getItem('cart'))
-        let sum = 0;
-        if (cart) {
-            cart.forEach(p => sum += p.amount)
+async function onload() {
+    setLoginOrOut();
+    const categories = await getCategories();
+    const products = await getProducts();
+    drawProducts(products)
+    if (categories != null)
+        categories.forEach(category => drawCategory(category, products))
+    setAmountOfItems()
+}
+
+function setAmountOfItems() {
+    const cart = JSON.parse(localStorage.getItem('cart'))
+    let sum = 0;
+    if (cart) {
+        cart.forEach(p => sum += p.amount)
+    }
+    const itemsCount = document.getElementById('ItemsCountText')
+    itemsCount.textContent = sum
+}
+
+
+document.addEventListener('load', onload())
+
+
+async function categoryFilter(categoryId, e) {
+    if (e.target.checked) {
+        categoryIds.push(categoryId)
+    }
+    else {
+        categoryIds = categoryIds.filter(c => c != categoryId)
+    }
+    console.log(categoryIds)
+    const products = await getProducts();
+    drawProducts(products)
+}
+
+async function nameFilter() {
+    const input = document.getElementById('nameSearch')
+    productName = input.value
+    const products = await getProducts();
+    drawProducts(products)
+}
+
+async function priceFilter() {
+    minPrice = document.getElementById('minPrice').value
+    maxPrice = document.getElementById('maxPrice').value
+    const products = await getProducts();
+    drawProducts(products)
+}
+
+function addToCart(product) {
+    let cart = localStorage.getItem('cart')
+    cart = JSON.parse(cart)
+    let inCart = false;
+    if (cart != null) {
+        cart.forEach((p) => { if (p.productId == product.productId) { p.amount += 1; inCart = true } })
+        if (!inCart) {
+            cart.push({ ...product, amount: 1 })
         }
-        const itemsCount = document.getElementById('ItemsCountText')
-        itemsCount.textContent = sum
+        localStorage.setItem('cart', JSON.stringify(cart))
     }
-
-
-    document.addEventListener('load', onload())
-
-
-    async function categoryFilter(categoryId, e) {
-        if (e.target.checked) {
-            categoryIds.push(categoryId)
-        }
-        else {
-            categoryIds = categoryIds.filter(c => c != categoryId)
-        }
-        console.log(categoryIds)
-        const products = await getProducts();
-        drawProducts(products)
+    else {
+        localStorage.setItem('cart', JSON.stringify([{ ...product, amount: 1 }]))
     }
-
-    async function nameFilter() {
-        const input = document.getElementById('nameSearch')
-        productName = input.value
-        const products = await getProducts();
-        drawProducts(products)
-    }
-
-    async function priceFilter() {
-        minPrice = document.getElementById('minPrice').value
-        maxPrice = document.getElementById('maxPrice').value
-        const products = await getProducts();
-        drawProducts(products)
-    }
-
-    function addToCart(product) {
-        let cart = localStorage.getItem('cart')
-        cart = JSON.parse(cart)
-        let inCart = false;
-        if (cart != null) {
-            cart.forEach((p) => { if (p.productId == product.productId) { p.amount += 1; inCart = true } })
-            if (!inCart) {
-                cart.push({ ...product, amount: 1 })
-            }
-            localStorage.setItem('cart', JSON.stringify(cart))
-        }
-        else {
-            localStorage.setItem('cart', JSON.stringify([{ ...product, amount: 1 }]))
-        }
-        setAmountOfItems()
-    }
+    setAmountOfItems()
+}

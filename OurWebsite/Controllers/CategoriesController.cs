@@ -22,7 +22,6 @@ namespace OurWebsite.Controllers
         }
 
         [HttpGet]
-
         public async Task<ActionResult<List<Category>>> GetAll()
         {
             List<Category> categories = await _categoryService.getAllCategories();

@@ -18,7 +18,6 @@
 }
 
 
-
 const register = async () => {
 
     let userName = document.getElementById('userName').value;
@@ -51,7 +50,6 @@ const register = async () => {
         console.log(err)
     }
 }
-
 
 
 const login = async () => {

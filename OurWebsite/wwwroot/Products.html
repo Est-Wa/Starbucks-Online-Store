@@ -19,7 +19,7 @@
     </template>
     <template id="temp-category">
         <div class="cb checkbox">
-            <input type="checkbox" class="opt" id="categoryChekBox" value="" >
+            <input type="checkbox" class="opt" id="categoryChekBox" value="">
             <label for="">
                 <span class="OptionName"></span>
                 <span class="Count"></span>
@@ -41,7 +41,7 @@
                         <a href="ShoppingBag.html" title="קניה מהירה">Quick buy</a>
                     </li>
                     <li>
-                        <a id="loginOrRegister"href="login.html" title="יציאה מהחשבון שלי" >Exit</a>
+                        <a id="loginOrRegister" href="login.html" title="יציאה מהחשבון שלי">Exit</a>
                     </li>
                 </ul>
             </section>
@@ -65,7 +65,7 @@
     </header>
 
     <div id="filters" class="Filters fixedVisible">
-        <div class="ResultCount" >
+        <div class="ResultCount">
             <a class="Clear" href="Products.html">clear all</a>
             <div><span id="counter">  </span> products</div>
             <div>
@@ -80,7 +80,7 @@
 
         <div id="nameFilter" class="nameFilter filterBreak">
 
-            <input type="text" id="nameSearch" class="floatRight" placeholder="search by product name" >
+            <input type="text" id="nameSearch" class="floatRight" placeholder="search by product name">
 
             <button class="floatRight" tabindex="0" onclick="nameFilter()">
                 <span class="header42"><img src="Images/searchIcon.svg" alt="סמל חיפוש"></span>
@@ -88,10 +88,8 @@
         </div>
         <div id="priceRangeFilter" class="filterBreak">
             <div><span id="counter">  </span> price:</div>
-
             <input type="text" maxlength="9" id="minPrice" class="priceInputText">
             <span class="priceCurrency">$</span>
-
             <input type="text" maxlength="9" id="maxPrice" class="priceInputText">
             <span class="priceCurrency">$</span>
             <button onclick="priceFilter()">
@@ -100,10 +98,7 @@
         </div>
     </div>
 
-    <div id="ProductList">
-
-    </div>
-
+    <div id="ProductList"></div>
 </body>
 </html>
 <script src="../Scripts/Products.js"></script>
