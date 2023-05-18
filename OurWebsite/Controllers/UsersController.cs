@@ -54,13 +54,14 @@ namespace OurWebsite.Controllers
 
         // POST api/<UsersController>
         [HttpPost("login")]
-        public async Task<ActionResult<UserNoPWDTO>> LoginPost([FromBody] UserOld user)
+        public async Task<ActionResult<UserNoPWDTO>> LoginPost([FromBody] LoginDTO user)
         {
             _logger.LogInformation($"attempt to login, user: {user}");
-            User data = await _userService.Login(user);
-            if (data != null) {
+            User data = _mapper.Map<User>(user);
+            User res = await _userService.Login(data);
+            if (res != null) {
                 _logger.LogInformation($"login success, user: {user}");
-                UserNoPWDTO u = _mapper.Map<User, UserNoPWDTO>(data);
+                UserNoPWDTO u = _mapper.Map<User, UserNoPWDTO>(res);
                 return u;
 
             }
@@ -71,14 +72,13 @@ namespace OurWebsite.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserOld>> Put(int id, [FromBody] UserDTO user)
+        public async Task<ActionResult<User>> Put(int id, [FromBody] UserDTO user)
         {
             _logger.LogInformation($"attempt to change user information, userId: {id}");
             var _user = _mapper.Map<User>(user);
             if(await _userService.Update(_user, id)) {
-                _logger.LogInformation($"success, user changed to {user}");
+                _logger.LogInformation($"success, user changed to {_user}");
                 return Ok(200);
-
             }
             _logger.LogInformation($"failed to change user.");
 

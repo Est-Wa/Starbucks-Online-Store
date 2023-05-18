@@ -24,7 +24,7 @@ namespace Services
            return await _userRepository.GetUser(id);
         }
 
-        public async Task<User> Login(UserOld user) {
+        public async Task<User> Login(User user) {
             return await _userRepository.Login(user);
         }
         public async Task<Boolean> Update(User user, int id) {

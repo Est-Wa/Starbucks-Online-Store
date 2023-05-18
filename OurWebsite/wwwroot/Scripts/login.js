@@ -21,7 +21,6 @@
 
 const register = async () => {
 
-    console.log('in register')
     let userName = document.getElementById('userName').value;
     let password = document.getElementById('password').value;
     let firstName = document.getElementById('firstName').value;
@@ -57,7 +56,6 @@ const register = async () => {
 
 const login = async () => {
 
-    console.log('in login')
     let userName = document.getElementById('userNameLogin').value;
     let password = document.getElementById('passwordLogin').value;
 

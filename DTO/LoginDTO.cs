@@ -10,8 +10,6 @@ namespace DTO
     public class LoginDTO
     {
         public string Password { get; set; } = null!;
-
-        [EmailAddress(ErrorMessage = "Email address incorrect")]
         public string UserName { get; set; } = null!;
 
     }
